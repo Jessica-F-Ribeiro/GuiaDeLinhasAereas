@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Validação</title>
+
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+<!-- Compiled and minified JavaScript -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+</head>
+<body>
+	<form action="salvarAdministrador" method="post">
+		<input type="hidden" name="id"  th:value="${admin?.id}"/>
+		<fieldset
+			style="margin-left: 30%; margin-right: 50px; width: 726.5px; height: 518.625px; margin-top: 7%;">
+			<legend>| Cadastro de Administrador |</legend>
+			<table>
+				<div class="container">
+					<div class="row">
+						<div class="input-field col s6">
+							<input id="first_name2" type="text" class="validate" name="nome"  th:value="${admin?.nome}
+								required> <label class="active" for="first_name2">Nome:</label>
+							<span class="helper-text" data-error="Erro!!"
+								data-success="Secesso!"></span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s6">
+							<input id="email" type="email" class="validate" name="email"  th:value="${admin?.email}
+								required> <label for="email">Email:</label> <span
+								class="helper-text" data-error="Erro!!" data-success="Secesso!"></span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s6">
+							<input id="password" type="password" class="validate" name="senha" th:value="${admin?.senha}
+								name="senha"> <label for="password">Senha:</label> <span
+								class="helper-text" data-error="Erro!!" data-success="Secesso!"></span>
+						</div>
+					</div>
+					<button class="btn waves-effect waves-light" type="submit"
+						name="action">
+						<i class="material-icons left">Enviar</i> <span
+							class="helper-text" data-error="Erro!!" data-success="Secesso!"></span>
+					</button>
+				</div>
+			</table>
+		</fieldset>
+	</form>
+	<br>
+	<br>
+	<div th:replace="fragments/mensagem"></div>
+</body>
+</html>
