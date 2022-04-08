@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Validação</title>
-
+<meta charset="utf-8">
+<title>Formulário de Companhias Aéreas</title>
 <!-- Compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -22,60 +21,61 @@ body {
 main {
 	flex: 1 0 auto;
 }
+
 nav {
-    background-color: darkslateblue;
-
+	background-color: darkslateblue;
 }
-footer{
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  text-align: center;
 
+footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
 }
+
 .page-footer {
-
-    background-color: darkslateblue;
+	background-color: darkslateblue;
 }
 </style>
 
 </head>
 <body>
 
-<header th:replace="fragments/padrao :: cabecalho"></header>
+	<header th:replace="fragments/padrao :: cabecalho"></header>
 
-	<form action="salvarAdministrador" method="post">
-		<input type="hidden" name="id" th:value="${admin?.id}" />
+	<form action="salvarTipos" method="post">
+		<input type="hidden" name="id" th:value="${trips?.id}" />
 		<fieldset
 			style="margin-left: 30%; margin-right: 50px; width: 726.5px; height: 518.625px; margin-top: 7%;">
-			<legend>| Cadastro de Administrador |</legend>
+			<legend>| Formulário de Companhias Aéreas |</legend>
 			<table>
 				<div class="container">
 					<div class="row">
 						<div class="input-field col s6">
 							<input id="first_name2" type="text" class="validate" name="nome"
-								th:value="${admin?.nome}" required> <label
+								th:value="${trips?.nome}" required> <label
 								class="active" for="first_name2">Nome:</label> <span
 								class="helper-text" data-error="Erro!!" data-success="Secesso!"></span>
 						</div>
 					</div>
 					<div class="row">
-						<div class="input-field col s6">
-							<input id="email" type="email" class="validate" name="email"
-								th:value="${admin?.email}" required> <label for="email">Email:</label>
-							<span class="helper-text" data-error="Erro!!"
-								data-success="Secesso!"></span>
+						<div class="row">
+							<div class="input-field col s12">
+								<textarea id="textarea1" class="materialize-textarea validate" name="descricao"
+									th:value="${trips?.descricao}" required></textarea>
+								<label for="textarea1">Descrição</label><span
+									class="helper-text" data-error="Erro!!" data-success="Secesso!"></span>
+							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="input-field col s6">
-							<input id="password" type="password" class="validate"
-								name="senha" th:value="${admin?.senha}"> <label
-								for="password">Senha:</label> <span class="helper-text"
-								data-error="Erro!!" data-success="Secesso!"></span>
-						</div>
+					<div class="input-field col s6">
+						<input id="first_name2" type="text" class="validate"
+							name="palavrasChave" th:value="${trips?.palavrasChave}" required>
+						<label class="active" for="first_name2">Palavras Chave</label> <span
+							class="helper-text" data-error="Erro!!" data-success="Secesso!"></span>
 					</div>
+
 					<button class="btn waves-effect waves-light" type="submit"
 						name="action">
 						<i class="material-icons left">Enviar</i> <span

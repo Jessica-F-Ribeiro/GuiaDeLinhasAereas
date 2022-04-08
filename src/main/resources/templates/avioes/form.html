@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Formulário</title>
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+<!-- Compiled and minified JavaScript -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<style>
+.row {
+	margin-bottom: 0px;
+}
+
+[type="checkbox"]+span:not(.lever) {
+	padding-left: 28px;
+}
+body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+
+main {
+	flex: 1 0 auto;
+}
+nav {
+    background-color: darkslateblue;
+
+}
+footer{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+
+}
+.page-footer {
+
+    background-color: darkslateblue;
+}
+</style>
+</head>
+<body>
+	<header th:replace="fragments/padrao :: cabecalho"></header>
+
+	<form action="salvarAviao" method="post" enctype="multipart/form-data" accept-charset="utf-8">
+		<input type="hidden" name="id" th:value="${avioes?.id}" />
+		<fieldset
+			style="margin-left: 30%; margin-right: 50px; width: 880.5px; margin-top: 7%; margin-bottom: 200px;">
+			<legend>| Formulário de Companhias Aéreas |</legend>
+			<table>
+				<div class="container row">
+					<div class="row">
+						<div class="input-field col s6">
+							<input id="first_name2" type="text" class="validate" name="nome"
+								th:value="${avioes?.nome}" required> <label
+								class="active" for="first_name2">Nome:</label> <span
+								class="helper-text" data-error="Erro!!" data-success="Secesso!"></span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s6">
+							<input id="icon_telephone" type="tel" class="validate"
+								name="telefone" th:value="${avioes?.telefone}" required>
+							<label for="icon_telephone">Telefone:</label><span
+								class="helper-text" data-error="Erro!!" data-success="Secesso!"></span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="row">
+							<div class="input-field col s12">
+								<textarea id="textarea1" class="materialize-textarea validate"
+									name="descricao" th:value="${avioes?.descricao}" required></textarea>
+								<label for="textarea1">Descrição</label><span
+									class="helper-text" data-error="Erro!!" data-success="Secesso!"></span>
+							</div>
+						</div>
+					</div>
+					<div class="frm-row input-field col s6">
+						<label for="cep">Cep</label> <input type="text" name="cep" 
+							th:value="${avioes?.cep}" required id="cep" maxlength="8">
+					</div>
+					<div class="frm-row input-field col s6">
+						<label for="rua">Rua</label> <input type="text" name="rua" readonly placeholder="_"
+							th:value="${avioes?.rua}" required id="rua">
+					</div>
+					<div class="frm-row input-field col s6">
+						<label for="numero">Número</label> <input type="text"
+							name="numero" th:value="${avioes?.numero}" required id="numero">
+					</div>
+					<div class="frm-row input-field col s6">
+						<label for="bairro">Bairro</label> <input type="text" readonly placeholder="_"
+							th:value="${avioes?.bairro}" required name="bairro" id="bairro">
+					</div>
+					<div class="frm-row input-field col s6">
+						<label for="cidade">Cidade</label> <input type="text" readonly placeholder="_"
+							th:value="${avioes?.cidade}" required name="cidade" id="cidade">
+					</div>
+					<div class="frm-row input-field col s6">
+						<label for="estado">Estado</label> <input type="text" readonly placeholder="_"
+							th:value="${avioes?.estado}" required name="estado" id="estado">
+					</div>
+					<div class="row">
+						<div class="row">
+							<div class="input-field col s12">
+								<textarea id="textarea1" class="materialize-textarea validate"
+									name="complemento" th:value="${avioes?.complemento}" required></textarea>
+								<label for="textarea1">Complemento</label><span
+									class="helper-text" data-error="Erro!!" data-success="Secesso!"></span>
+							</div>
+						</div>
+					</div>
+					<div class="file-field input-field">
+						<div class="btn">
+							<span>Escolha um Arquivo</span> <input type="file"
+								name="fileFotos" multiple accept="image/*">
+						</div>
+						<div class="file-path-wrapper">
+							<input class="file-path validate" type="text">
+						</div>
+					</div>
+					<br> <br>
+					<div class="input-field col s6">
+						<select required name="avioes.id">
+							<option th:each="c: ${tipos}" th:value="${c.id }"
+								th:text="${c?.nome}"></option>
+						</select> <label>Tipo de Linhas</label>
+					</div>
+					<br> <br>
+					<div>
+						<label> <input type="checkbox" name="espacoInfantil"
+							th:value="${avioes?.espacoInfantil}" /><span>Espaço
+								Infantil</span>
+						</label> <label> <input type="checkbox" name="estacionamento"
+							th:value="${avioes?.estacionamento}" /> <span>Estacionamento</span>
+						</label> <label> <input type="checkbox" name="taxista"
+							th:value="${avioes?.taxista}" /> <span>Taxista Local</span>
+						</label>
+					</div>
+					<div>
+						<p>Formas de Pagamento:</p>
+						<label> <input type="checkbox" name="dinheiro"
+							th:value="${avioes?.dinheiro}" /><span>Dinheiro</span>
+						</label> <label> <input type="checkbox" name="cartao"
+							th:value="${avioes?.cartao}" /> <span>Cartão</span>
+						</label> <label> <input type="checkbox" name="pix"
+							th:value="${avioes?.pix}" /> <span>Pix</span>
+						</label> <label> <input type="checkbox" name="boleto"
+							th:value="${avioes?.boleto}" /> <span>Boleto</span>
+						</label>
+					</div>
+
+					<div class="row">
+						<div class="input-field col s6">
+							<input id="site" type="text" class="validate" name="site"
+								th:value="${avioes?.site}" required> <label
+								class="active" for="site">WebSite:</label> <span
+								class="helper-text" data-error="Erro!!" data-success="Secesso!"></span>
+						</div>
+					</div>
+
+					<button class="btn waves-effect waves-light" type="submit"
+						name="action">
+						<i class="material-icons left">Enviar</i> <span
+							class="helper-text" data-error="Erro!!" data-success="Secesso!"></span>
+					</button>
+				</div>
+			</table>
+		</fieldset>
+	</form>
+	<div th:replace="fragments/mensagem"></div>
+	<footer th:replace="fragments/padrao :: rodape"></footer>
+	
+	<script src="buscaEndereco.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<!-- Compiled and minified JavaScript -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+	<script>
+		$(document).ready(function() {
+			$('select').formSelect();
+		});
+	</script>
+</body>
+</html>

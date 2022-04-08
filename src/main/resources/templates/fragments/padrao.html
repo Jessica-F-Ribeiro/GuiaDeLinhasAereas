@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>HTML Padrão</title>
+</head>
+<body>
+	<header th:fragment="cabecalho">
+		<nav>
+			<div class="nav-wrapper">
+				<a href="#" class="brand-logo">Airline Guide</a>
+				<ul id="nav-mobile" class="right hide-on-med-and-down">
+					<li><a href="http://localhost:8080/listarAdmin/1">Lista</a></li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	<header th:fragment="pesquisa">
+		<nav>
+			<div class="nav-wrapper">
+				<form action="/buscarPorPalavra">
+					<div class="input-field">
+						<input id="search" type="search" name="palavrasChave" required> <label
+							class="label-icon" for="search"><i class="material-icons">search</i></label>
+						<i class="material-icons">close</i>
+					</div>
+				</form>
+			</div>
+		</nav>
+	</header>
+	<header th:fragment="cabecalhoLista">
+		<nav>
+			<div class="nav-wrapper">
+				<a href="#" class="brand-logo">Airline Guide</a>
+				<ul id="nav-mobile" class="right hide-on-med-and-down">
+					<li><a href="http://localhost:8080/validacao">Cadastro</a></li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+
+	<footer th:fragment="rodape" class="page-footer">
+		<div class="container">
+			<div class="row">
+				<div class="footer-copyright">
+					<div class="container">© 2022 Copyright</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

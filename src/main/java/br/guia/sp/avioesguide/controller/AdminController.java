@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.guia.sp.avioesguide.model.Administrador;
 import br.guia.sp.avioesguide.repository.AdminRepository;
+import br.guia.sp.avioesguide.util.HashUtil;
 
 @Controller
 public class AdminController {
@@ -37,6 +38,24 @@ public class AdminController {
 			attr.addFlashAttribute("mensagemErro", "Verifique os campos...");
 			return "redirect:validacao";
 		}
+		// verifica se esta sendo feita uma alteraçao ao inves de uma insercao
+		boolean alteracao = admin.getId() != null ? true : false;
+		
+		// verifica se a senha esta vazia
+		if(admin.getSenha().equals(HashUtil.hash256(""))) {
+			// se nao for alteracao, eu defino a primeira parte do e-mail como a senha
+			if(!alteracao) {
+				// extrai a parte do email antes do @
+				String parte = admin.getEmail().substring(0, admin.getEmail().indexOf("@"));
+				// define a senha do admin
+				admin.setSenha(parte);
+			}else {
+				// busca a senha atual
+				String hash = repository.findById(admin.getId()).get().getSenha();
+				// seta a sneha som hash
+				admin.setSenhaComHash(hash);
+			}
+		}
 		try {
 			// salva o administrador
 			repository.save(admin);
@@ -53,7 +72,7 @@ public class AdminController {
 	public String listar(Model model, @PathVariable("page") int page) {
 		// cria um pageble com 6 elementos por pagina, ordenando pelo nome, de forma
 		// ascendente
-		PageRequest pageble = PageRequest.of(page - 1, 6, Sort.by(Sort.Direction.ASC, "nome"));
+		PageRequest pageble = PageRequest.of(page - 1, 10, Sort.by(Sort.Direction.ASC, "nome"));
 		// cria a pagina atual atrasves do repository
 		Page<Administrador> pagina = repository.findAll(pageble);
 		// descobrir o total de paginas
@@ -81,6 +100,6 @@ public class AdminController {
 	@RequestMapping("excluir")
 	public String excluir(Long id) {
 		repository.deleteById(id);
-		return "redirect:listarAdmin";
+		return "redirect:listarAdmin/";
 	}
 }
