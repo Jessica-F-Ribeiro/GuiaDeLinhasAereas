@@ -19,7 +19,7 @@ public class Avioes {
 	@Column(columnDefinition = "TEXT")
 	private String descricao;
 	private String cep; 
-	private String endereco;
+	private String rua;
 	private String numero;
 	private String bairro;
 	private String cidade;
@@ -29,11 +29,17 @@ public class Avioes {
 	private String fotos;
 	@ManyToOne
 	private TipoViagens tipo; //SELECT
-	private Boolean espacoInfantil;
-	private Boolean estacionamento;
-	private Boolean taxista;
-	private String formasPagamento;
+	private boolean espacoInfantil;
+	private boolean estacionamento;
+	private boolean taxista;
+	private boolean dinheiro;
+	private boolean cartao;
+	private boolean pix;
+	private boolean boleto;
 	private String site;
-	private String telefone; 	
-	private String redesSocias;
+	private String telefone;
+	
+	public String[] verFotos() {
+		return this.fotos.split(";");
+	}
 }

@@ -3,6 +3,7 @@ package br.guia.sp.avioesguide.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.guia.sp.avioesguide.annotation.Publico;
 import br.guia.sp.avioesguide.model.Administrador;
 import br.guia.sp.avioesguide.repository.AdminRepository;
 import br.guia.sp.avioesguide.util.HashUtil;
@@ -95,8 +97,32 @@ public class AdminController {
 	public String alterar(Model model, Long id) {
 		Administrador adminis = repository.findById(id).get();
 		model.addAttribute("admin", adminis);
-		return "redirect:validacao";
+		return "forward:validacao";
 	}
+	@Publico
+	@RequestMapping("login")
+	private String login(Administrador admLogin, RedirectAttributes attr, HttpSession session) {
+		// buscar o adm no BD atraves do email e senha
+		Administrador admin = repository.findByEmailAndSenha(admLogin.getEmail(), admLogin.getSenha());
+		// verifica se existe o admin
+		if(admin == null) {
+			// se não for nulo, avisa ao usuario
+			attr.addFlashAttribute("mensagemErro", "Login e/ou senha inválido(s)");
+			return "redirect:/";
+		}else {
+			// se não for nulo, salva na sessao e acessa o sistema
+			session.setAttribute("usuarioLogado", admin);
+			return "redirect:listaAvioes/1";
+		}
+	}
+	@RequestMapping("logout")
+	public String logout(HttpSession session) {
+		// elimina o ususario da session
+		session.invalidate();
+		// retorna para a página inicial
+		return "redirect:login";
+	}
+	
 	@RequestMapping("excluir")
 	public String excluir(Long id) {
 		repository.deleteById(id);

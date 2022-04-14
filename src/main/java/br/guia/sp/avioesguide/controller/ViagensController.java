@@ -3,6 +3,8 @@ package br.guia.sp.avioesguide.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,12 +27,12 @@ public class ViagensController {
 	@Autowired
 	private ViagensRepository repository;
 	
-	@RequestMapping(value = "tiposViagem", method = RequestMethod.GET)
+	@RequestMapping("tiposViagem")
 	private String formVi() {
 		return "viagensList/formViagem";
 	}
 	@RequestMapping(value = "salvarTipos", method = RequestMethod.POST)
-	private String salvarTipos(TipoViagens tipo, BindingResult result, RedirectAttributes attr) {
+	private String salvarTipos(@Valid TipoViagens tipo, BindingResult result, RedirectAttributes attr) {
 		if (result.hasErrors()) {
 			attr.addFlashAttribute("mensagemErro", "Verifique os campos...");
 			return "redirect:tiposViagem";
@@ -42,7 +44,7 @@ public class ViagensController {
 		} catch (Exception e) {
 			attr.addFlashAttribute("mensagemErro", "Houve um erro ao cadastrar o Administrador: " + e.getMessage());
 		}
-		return "redirect:tiposViagem";
+		return "redirect:listarTipos/1";
 	}
 	
 	@RequestMapping("listarTipos/{page}")
@@ -69,11 +71,11 @@ public class ViagensController {
 	public String alterarTipos(Model model, Long id) {
 		TipoViagens tipos = repository.findById(id).get();
 		model.addAttribute("tips", tipos);
-		return "redirect:tiposViagem";
+		return "forward:tiposViagem";
 	}
 	@RequestMapping("excluirTipos")
 	public String excluirTipos(Long id) {
 		repository.deleteById(id);
-		return "redirect:listarTipos/";
+		return "redirect:listarTipos/1";
 	}
 }

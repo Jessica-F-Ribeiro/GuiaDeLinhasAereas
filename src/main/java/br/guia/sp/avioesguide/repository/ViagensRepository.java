@@ -13,5 +13,5 @@ public interface ViagensRepository extends PagingAndSortingRepository<TipoViagen
 	@Query("SELECT c FROM TipoViagens c WHERE c.palavrasChave LIKE %:p%")
 	public List<TipoViagens> procurarPorTudo(@Param("p") String palavrasChave);
 	
-	public List<Avioes> findAllByOrderByNomeAsc();
+	public List<TipoViagens> findAllByOrderByNomeAsc();
 }

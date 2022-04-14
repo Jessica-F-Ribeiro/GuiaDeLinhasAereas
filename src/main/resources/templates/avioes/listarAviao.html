@@ -51,49 +51,27 @@ footer{
 					<th>Id</th>
 					<th>Nome</th>
 					<th>Descrição</th>
-                    <th>CEP</th>
-                    <th>Endereço</th>
-                    <th>Numero</th>
-                    <th>Bairro</th>
-                    <th>Cidade</th>
-                    <th>Estado</th>
                     <th>Complemento</th>
-                    <th>Fotos</th>
                     <th>Tipo</th>
-                    <th>Espaço Infantil</th>
-                    <th>Estacionamento</th>
-                    <th>Taxista Local</th>
-                    <th>Pagamento</th>
                     <th>Site</th>
                     <th>Telefone</th>
-                    <th>Redes Sociais</th>
+                    <th>Fotos</th>
 					<th>Alterar</th>
 					<th>Excluir</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="lista:${avioes}">
+				<tr th:each="lista:${avioesList}">
 					<td th:text="${lista.id}"></td>
 					<td th:text="${lista.nome}"></td>
 					<td th:text="${lista.descricao}"></td>
-                    <td th:text="${lista.cep}"></td>
-                    <td th:text="${lista.endereco}"></td>
-                    <td th:text="${lista.numero}"></td>
-                    <td th:text="${lista.bairro}"></td>
-                    <td th:text="${lista.cidade}"></td>
-                    <td th:text="${lista.estado}"></td>
                     <td th:text="${lista.complemento}"></td>
-                    <td th:text="${lista.fotos}"></td>
-                    <td th:text="${lista.tipo.toString() }"></td>
-                    <td th:text="${lista.espacoInfantil}"></td>
-                    <td th:text="${lista.estacionamento}"></td>
-                    <td th:text="${lista.taxista}"></td>
-                    <td th:text="${lista.formasPagamento}"></td>
+                    <td th:text="${lista.tipo}"></td>
                     <td th:text="${lista.site}"></td>
                     <td th:text="${lista.telefone}"></td>
-                    <td th:text="${lista.redesSociais}"></td>
-					<td><a th:href="@{/alterar(id=${lista.id})}">Alterar</a></td>
-					<td><a th:href="@{/excluir(id=${lista.id})}">Excluir</a></td>
+                    <td style="display: flex !important"><img style="width: 150px;" th:each="a: ${lista.verFotos()}"th:src="${a}"></td>
+					<td><a th:href="@{/alteraAviao(id=${lista.id})}">Alterar</a></td>
+					<td><a th:href="@{/excluiAviao(id=${lista.id})}">Excluir</a></td>
 				</tr>
 			</tbody>
 		</table>

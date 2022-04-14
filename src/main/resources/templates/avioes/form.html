@@ -10,6 +10,8 @@
 <!-- Compiled and minified JavaScript -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
 <style>
 .row {
 	margin-bottom: 0px;
@@ -18,6 +20,7 @@
 [type="checkbox"]+span:not(.lever) {
 	padding-left: 28px;
 }
+
 body {
 	display: flex;
 	min-height: 100vh;
@@ -27,38 +30,39 @@ body {
 main {
 	flex: 1 0 auto;
 }
+
 nav {
-    background-color: darkslateblue;
-
+	background-color: darkslateblue;
 }
-footer{
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  text-align: center;
 
+footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
 }
+
 .page-footer {
-
-    background-color: darkslateblue;
+	background-color: darkslateblue;
 }
 </style>
 </head>
 <body>
 	<header th:replace="fragments/padrao :: cabecalho"></header>
 
-	<form action="salvarAviao" method="post" enctype="multipart/form-data" accept-charset="utf-8">
-		<input type="hidden" name="id" th:value="${avioes?.id}" />
+	<form action="salvarAviao" method="post" enctype="multipart/form-data"
+		accept-charset="utf-8">
+		<input type="hidden" name="id" th:value="${avioesList?.id}" />
 		<fieldset
 			style="margin-left: 30%; margin-right: 50px; width: 880.5px; margin-top: 7%; margin-bottom: 200px;">
 			<legend>| Formulário de Companhias Aéreas |</legend>
 			<table>
 				<div class="container row">
-					<div class="row">
+					<div class="row"> 
 						<div class="input-field col s6">
 							<input id="first_name2" type="text" class="validate" name="nome"
-								th:value="${avioes?.nome}" required> <label
+								th:value="${avioesList?.nome}" required> <label
 								class="active" for="first_name2">Nome:</label> <span
 								class="helper-text" data-error="Erro!!" data-success="Secesso!"></span>
 						</div>
@@ -66,7 +70,7 @@ footer{
 					<div class="row">
 						<div class="input-field col s6">
 							<input id="icon_telephone" type="tel" class="validate"
-								name="telefone" th:value="${avioes?.telefone}" required>
+								name="telefone" th:value="${avioesList?.telefone}" required>
 							<label for="icon_telephone">Telefone:</label><span
 								class="helper-text" data-error="Erro!!" data-success="Secesso!"></span>
 						</div>
@@ -75,41 +79,45 @@ footer{
 						<div class="row">
 							<div class="input-field col s12">
 								<textarea id="textarea1" class="materialize-textarea validate"
-									name="descricao" th:value="${avioes?.descricao}" required></textarea>
+									name="descricao" th:value="${avioesList?.descricao}" required></textarea>
 								<label for="textarea1">Descrição</label><span
 									class="helper-text" data-error="Erro!!" data-success="Secesso!"></span>
 							</div>
 						</div>
 					</div>
 					<div class="frm-row input-field col s6">
-						<label for="cep">Cep</label> <input type="text" name="cep" 
-							th:value="${avioes?.cep}" required id="cep" maxlength="8">
+						<label for="cep">Cep</label> <input type="text" name="cep"
+							th:value="${avioesList?.cep}" required id="cep" maxlength="8">
 					</div>
 					<div class="frm-row input-field col s6">
-						<label for="rua">Rua</label> <input type="text" name="rua" readonly placeholder="_"
-							th:value="${avioes?.rua}" required id="rua">
+						<label for="rua">Rua</label> <input type="text" name="rua"
+							readonly placeholder="_" th:value="${avioesList?.rua}" required
+							id="rua">
 					</div>
 					<div class="frm-row input-field col s6">
 						<label for="numero">Número</label> <input type="text"
-							name="numero" th:value="${avioes?.numero}" required id="numero">
+							name="numero" th:value="${avioesList?.numero}" required id="numero">
 					</div>
 					<div class="frm-row input-field col s6">
-						<label for="bairro">Bairro</label> <input type="text" readonly placeholder="_"
-							th:value="${avioes?.bairro}" required name="bairro" id="bairro">
+						<label for="bairro">Bairro</label> <input type="text" readonly
+							placeholder="_" th:value="${avioesList?.bairro}" required
+							name="bairro" id="bairro">
 					</div>
 					<div class="frm-row input-field col s6">
-						<label for="cidade">Cidade</label> <input type="text" readonly placeholder="_"
-							th:value="${avioes?.cidade}" required name="cidade" id="cidade">
+						<label for="cidade">Cidade</label> <input type="text" readonly
+							placeholder="_" th:value="${avioesList?.cidade}" required
+							name="cidade" id="cidade">
 					</div>
 					<div class="frm-row input-field col s6">
-						<label for="estado">Estado</label> <input type="text" readonly placeholder="_"
-							th:value="${avioes?.estado}" required name="estado" id="estado">
+						<label for="estado">Estado</label> <input type="text" readonly
+							placeholder="_" th:value="${avioesList?.estado}" required
+							name="estado" id="estado">
 					</div>
 					<div class="row">
 						<div class="row">
 							<div class="input-field col s12">
 								<textarea id="textarea1" class="materialize-textarea validate"
-									name="complemento" th:value="${avioes?.complemento}" required></textarea>
+									name="complemento" th:value="${avioesList?.complemento}" required></textarea>
 								<label for="textarea1">Complemento</label><span
 									class="helper-text" data-error="Erro!!" data-success="Secesso!"></span>
 							</div>
@@ -124,41 +132,49 @@ footer{
 							<input class="file-path validate" type="text">
 						</div>
 					</div>
+					<div th:if="${avioesList?.fotos?.length > 0}">
+						<h6>Fotos Cadastradas</h6>
+						<div>
+							<ul>
+								<li th:each="foto, i : ${avioesList?.verFotos()}"><img
+									th:src="${foto}" width="100px" target="_blank">
+									<a th:href="@{/excluirFotoAv(idAvioes=${avioesList.id}, numFoto = ${i.index})}">
+									<i class="material-icons">delete-forever</i></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<input type="hidden" th:value=${avioesList?.fotos} name="fotos"/>
 					<br> <br>
 					<div class="input-field col s6">
-						<select required name="avioes.id">
+						<select required name="tipo.id">
 							<option th:each="c: ${tipos}" th:value="${c.id }"
-								th:text="${c?.nome}"></option>
+								th:text="${c?.nome}" th:selected="${c.id == avioesList?.tipo?.id}"></option>
 						</select> <label>Tipo de Linhas</label>
 					</div>
 					<br> <br>
 					<div>
-						<label> <input type="checkbox" name="espacoInfantil"
-							th:value="${avioes?.espacoInfantil}" /><span>Espaço
+						<label> <input type="checkbox" name="espacoInfantil" th:checked=${avioesList?.espacoInfantil} /><span>Espaço
 								Infantil</span>
-						</label> <label> <input type="checkbox" name="estacionamento"
-							th:value="${avioes?.estacionamento}" /> <span>Estacionamento</span>
-						</label> <label> <input type="checkbox" name="taxista"
-							th:value="${avioes?.taxista}" /> <span>Taxista Local</span>
+						</label> <label> <input type="checkbox" name="estacionamento" th:checked="${avioesList?.estacionamento}"/>
+							<span>Estacionamento</span>
+						</label> <label> <input type="checkbox" name="taxista" th:checked=${avioesList?.taxista}/> <span>Taxista
+								Local</span>
 						</label>
 					</div>
 					<div>
 						<p>Formas de Pagamento:</p>
-						<label> <input type="checkbox" name="dinheiro"
-							th:value="${avioes?.dinheiro}" /><span>Dinheiro</span>
-						</label> <label> <input type="checkbox" name="cartao"
-							th:value="${avioes?.cartao}" /> <span>Cartão</span>
-						</label> <label> <input type="checkbox" name="pix"
-							th:value="${avioes?.pix}" /> <span>Pix</span>
-						</label> <label> <input type="checkbox" name="boleto"
-							th:value="${avioes?.boleto}" /> <span>Boleto</span>
+						<label> <input type="checkbox" name="dinheiro" th:checked=${avioesList?.dinheiro}/><span>Dinheiro</span>
+						</label> <label> <input type="checkbox" name="cartao" th:checked=${avioesList?.cartao}/> <span>Cartão</span>
+						</label> <label> <input type="checkbox" name="pix" th:checked=${avioesList?.pix}/> <span>Pix</span>
+						</label> <label> <input type="checkbox" name="boleto" th:checked=${avioesList?.boleto}/> <span>Boleto</span>
 						</label>
 					</div>
 
 					<div class="row">
 						<div class="input-field col s6">
 							<input id="site" type="text" class="validate" name="site"
-								th:value="${avioes?.site}" required> <label
+								th:value="${avioesList?.site}" required> <label
 								class="active" for="site">WebSite:</label> <span
 								class="helper-text" data-error="Erro!!" data-success="Secesso!"></span>
 						</div>
@@ -175,7 +191,7 @@ footer{
 	</form>
 	<div th:replace="fragments/mensagem"></div>
 	<footer th:replace="fragments/padrao :: rodape"></footer>
-	
+
 	<script src="buscaEndereco.js"></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<!-- Compiled and minified JavaScript -->
